@@ -32,9 +32,7 @@ void loop() {
   // 2. Logic: Z = X'Y + XY'
   int xbar = !X;
   int ybar = !Y;
-  int term1 = xbar && Y;   // X'Y
-  int term2 = X && ybar;   // XY'
-  int Z = term1 || term2;  // OR
+  int Z = (X&&ybar)||(xbar&&Y);  // OR
 
   // 3. Drive 7447
   digitalWrite(Apin, Z);   // Only A is used
