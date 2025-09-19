@@ -1,53 +1,73 @@
-#include <Arduino.h>
+// XOR Display on Seven-Segment (without 7447)
 
 // Inputs
-const int Xpin = 2;   // Input X
-const int Ypin = 3;   // Input Y
+const int Xpin = 2; // Input X
+const int Ypin = 3; // Input Y
 
-// 7447 inputs
-const int Apin = 4;   // A
-const int Bpin = 5;   // B
-const int Cpin = 6;   // C
-const int Dpin = 7;   // D
+// Seven-segment pins (a-g)
+const int segA = 4;
+const int segB = 5;
+const int segC = 6;
+const int segD = 7;
+const int segE = 8;
+const int segF = 9;
+const int segG = 10;
 
 void setup() {
   // Inputs with pull-ups
   pinMode(Xpin, INPUT_PULLUP);
   pinMode(Ypin, INPUT_PULLUP);
 
-  // 7447 inputs as outputs
-  pinMode(Apin, OUTPUT);
-  pinMode(Bpin, OUTPUT);
-  pinMode(Cpin, OUTPUT);
-  pinMode(Dpin, OUTPUT);
+  // Set all segment pins as output
+  pinMode(segA, OUTPUT);
+  pinMode(segB, OUTPUT);
+  pinMode(segC, OUTPUT);
+  pinMode(segD, OUTPUT);
+  pinMode(segE, OUTPUT);
+  pinMode(segF, OUTPUT);
+  pinMode(segG, OUTPUT);
 
   Serial.begin(9600);
 }
 
+// Function to display 0 or 1 on seven-segment (common anode)
+void displayNumber(int num) {
+  if (num == 0) {
+    digitalWrite(segA, LOW);
+    digitalWrite(segB, LOW);
+    digitalWrite(segC, LOW);
+    digitalWrite(segD, LOW);
+    digitalWrite(segE, LOW);
+    digitalWrite(segF, LOW);
+    digitalWrite(segG, HIGH);
+  } else if (num == 1) {
+    digitalWrite(segA, HIGH);
+    digitalWrite(segB, LOW);
+    digitalWrite(segC, LOW);
+    digitalWrite(segD, HIGH);
+    digitalWrite(segE, HIGH);
+    digitalWrite(segF, HIGH);
+    digitalWrite(segG, HIGH);
+  }
+}
+
 void loop() {
-  // 1. Read inputs
-  int X = !digitalRead(Xpin);  // invert because of pull-up
+  // Read inputs
+  int X = !digitalRead(Xpin); // invert because of pull-up
   int Y = !digitalRead(Ypin);
 
-  // 2. Logic: Z = X'Y + XY'
-  int xbar = !X;
-  int ybar = !Y;
-  int term1 = xbar && Y;   // X'Y
-  int term2 = X && ybar;   // XY'
-  int Z = term1 || term2;  // OR
+  // XOR logic
+  int Z = (X && !Y) || (!X && Y);
 
-  // 3. Drive 7447
-  digitalWrite(Apin, Z);   // Only A is used
-  digitalWrite(Bpin, LOW);
-  digitalWrite(Cpin, LOW);
-  digitalWrite(Dpin, LOW);
+  // Display XOR output
+  displayNumber(Z);
 
-  // 4. Debug
+  // Debug
   Serial.print("X=");
   Serial.print(X);
   Serial.print("  Y=");
   Serial.print(Y);
-  Serial.print("  Z=");
+  Serial.print("  XOR=");
   Serial.println(Z);
 
   delay(500);
