@@ -5,13 +5,13 @@ const int Xpin = 2; // Input X
 const int Ypin = 3; // Input Y
 
 // Seven-segment pins (a-g)
-const int segA = 4;
-const int segB = 5;
-const int segC = 6;
-const int segD = 7;
-const int segE = 8;
-const int segF = 9;
-const int segG = 10;
+const int A = 4;
+const int B = 5;
+const int C = 6;
+const int D = 7;
+const int E = 8;
+const int F = 9;
+const int G = 10;
 
 void setup() {
   // Inputs with pull-ups
@@ -19,13 +19,13 @@ void setup() {
   pinMode(Ypin, INPUT_PULLUP);
 
   // Set all segment pins as output
-  pinMode(segA, OUTPUT);
-  pinMode(segB, OUTPUT);
-  pinMode(segC, OUTPUT);
-  pinMode(segD, OUTPUT);
-  pinMode(segE, OUTPUT);
-  pinMode(segF, OUTPUT);
-  pinMode(segG, OUTPUT);
+  pinMode(A, OUTPUT);
+  pinMode(B, OUTPUT);
+  pinMode(C, OUTPUT);
+  pinMode(D, OUTPUT);
+  pinMode(E, OUTPUT);
+  pinMode(F, OUTPUT);
+  pinMode(G, OUTPUT);
 
   Serial.begin(9600);
 }
@@ -33,21 +33,21 @@ void setup() {
 // Function to display 0 or 1 on seven-segment (common anode)
 void displayNumber(int num) {
   if (num == 0) {
-    digitalWrite(segA, LOW);
-    digitalWrite(segB, LOW);
-    digitalWrite(segC, LOW);
-    digitalWrite(segD, LOW);
-    digitalWrite(segE, LOW);
-    digitalWrite(segF, LOW);
-    digitalWrite(segG, HIGH);
+    digitalWrite(A, LOW);
+    digitalWrite(B, LOW);
+    digitalWrite(C, LOW);
+    digitalWrite(D, LOW);
+    digitalWrite(E, LOW);
+    digitalWrite(F, LOW);
+    digitalWrite(G, HIGH);
   } else if (num == 1) {
-    digitalWrite(segA, HIGH);
-    digitalWrite(segB, LOW);
-    digitalWrite(segC, LOW);
-    digitalWrite(segD, HIGH);
-    digitalWrite(segE, HIGH);
-    digitalWrite(segF, HIGH);
-    digitalWrite(segG, HIGH);
+    digitalWrite(A, HIGH);
+    digitalWrite(B, LOW);
+    digitalWrite(C, LOW);
+    digitalWrite(D, HIGH);
+    digitalWrite(E, HIGH);
+    digitalWrite(F, HIGH);
+    digitalWrite(G, HIGH);
   }
 }
 
