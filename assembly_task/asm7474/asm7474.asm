@@ -1,7 +1,3 @@
-;===============================================
-; AVR Assembly: A & ~B shown on 7-seg (via 7447)
-; Using 7474 flip-flops as storage
-;===============================================
 
 .include "m328Pdef.inc"
 
@@ -12,9 +8,6 @@
 .equ Q_A_MASK  = 0x08    ; PD3 = bit3
 .equ Q_B_MASK  = 0x10    ; PD4 = bit4
 
-;-----------------------------------------------
-; Reset Vector
-;-----------------------------------------------
 .cseg
 .org 0x00
 rjmp RESET
@@ -32,9 +25,6 @@ RESET:
     ldi r16, 0x0F
     out DDRB, r16
 
-;-----------------------------------------------
-; Main Loop
-;-----------------------------------------------
 MAIN_LOOP:
 
     ; Example: A = 1, B = 0
@@ -86,9 +76,6 @@ MAIN_LOOP:
     rcall DELAY_LONG
     rjmp MAIN_LOOP
 
-;-----------------------------------------------
-; Delay routines (approximate)
-;-----------------------------------------------
 DELAY_SHORT:               ; ~1ms
     ldi r21, 0xFF
 D1: dec r21
