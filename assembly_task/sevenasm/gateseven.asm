@@ -1,17 +1,10 @@
 .include "m328Pdef.inc"
-
-;-----------------------------------
-; Initialize
-;-----------------------------------
 ldi r16, 0xFF        ; Set PORTD (pins 0–7) as output (7-seg display)
 out DDRD, r16
 
 ldi r16, 0x00        ; Set PORTB as input (A,B from PB0, PB1)
 out DDRB, r16
 
-;-----------------------------------
-; Main Loop
-;-----------------------------------
 loop:
     in r17, PINB          ; Read PORTB
     mov r18, r17          ; Copy to r18
@@ -32,9 +25,6 @@ loop:
     and r19, r20          ; Q = A * ~B
     mov r22, r19          ; Store Q
 
-    ;-----------------------------------
-    ; Display Q on 7-segment
-    ;-----------------------------------
     cpi r22, 0
     breq showZero         ; if Q=0 → show 0
     rjmp showOne          ; if Q=1 → show 1
