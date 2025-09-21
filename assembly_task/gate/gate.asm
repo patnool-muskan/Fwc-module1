@@ -4,18 +4,12 @@
 
 .include "m328Pdef.inc"
 
-;-------------------------
-; Initialization
-;-------------------------
 ldi r16, 0b00000001      ; Set PB0 as output
 out DDRB, r16
 
 ldi r16, 0b00000000      ; Set PORTD as input
 out DDRD, r16
 
-;-------------------------
-; Main loop
-;-------------------------
 loop:
     in r17, PIND          ; Read inputs from PORTD
     mov r18, r17          ; Copy input
