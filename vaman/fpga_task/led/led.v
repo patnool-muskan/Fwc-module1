@@ -1,4 +1,4 @@
-module mux_led(
+module helloworldfpga(
     input A,    // Select line S1
     input B,    // Select line S0
     input C,    // Data input
