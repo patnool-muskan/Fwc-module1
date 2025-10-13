@@ -1,0 +1,147 @@
+\documentclass[a4paper,12pt]{article}
+
+% ---------- Packages ----------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{hyperref}
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=1cm]{IIITB-COMET-Logo.png}}
+\fancyhead[R]{Name: P.Muskan\\ID: cometfwc035}
+
+\section*{Question}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=0.8\linewidth]{question.jpg}
+\end{figure}
+% ---------- Code Style ----------
+\lstdefinestyle{verilog}{
+  language=Verilog,
+  backgroundcolor=\color{gray!10},
+  basicstyle=\ttfamily\footnotesize,
+  frame=single,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false,
+  captionpos=b
+}
+
+% ---------- Document ----------
+
+\begin{center}
+    \Huge\textbf{Implementation of 4x1 Multiplexer using Verilog and Vaman Board}\\[1em]
+    \Large\textbf{Hardware Implementation Report}\\[1em]
+\end{center}
+\section*{Q.1 FPGA  Experiment}
+\section*{Objective}
+To design, simulate, and physically implement a 4x1 multiplexer using Verilog HDL on a Vaman FPGA development board. The output of the multiplexer is observed using LEDs.
+
+\section*{Hardware Required}
+\begin{itemize}
+    \item Vaman FPGA Board
+    \item LEDs
+    \item Resistors (220 $\Omega$)
+    \item Jumper Wires
+    \item Breadboard
+    \item sevensegment
+    \item 7447
+\end{itemize}
+
+\section*{Theory}
+A multiplexer (MUX) is a combinational circuit that selects one of several input signals and forwards the selected input to a single output line.  
+A 4x1 multiplexer has 4 input lines, 2 selection lines, and 1 output line.
+
+The truth table for a 4x1 MUX is as follows:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Select Lines (S1 S0) & Selected Input & Output (Y) \\
+\hline
+00 & I0 & I0 \\
+01 & I1 & I1 \\
+10 & I2 & I2 \\
+11 & I3 & I3 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{Verilog Code}
+\begin{verbatim}
+\begin{lstlisting}[style=verilog, caption={4x1 Multiplexer Verilog Code}]
+module display_decoder(
+    input A, B, C, D,          // 4-bit input (from switches)
+    output reg [6:0] seg       // 7-segment display outputs (a,b,c,d,e,f,g)
+);
+
+    wire [3:0] input_num;
+    assign input_num = {A, B, C, D};   // Combine into 4-bit binary
+
+    // 7-segment decoder logic
+    always @(*) begin
+        case (input_num)
+            4'd0: seg = 7'b0000001; // 0
+            4'd1: seg = 7'b1001111; // 1
+            4'd2: seg = 7'b0010010; // 2
+            4'd3: seg = 7'b0000110; // 3
+            4'd4: seg = 7'b1001100; // 4
+            4'd5: seg = 7'b0100100; // 5
+            4'd6: seg = 7'b0100000; // 6
+            4'd7: seg = 7'b0001111; // 7
+            4'd8: seg = 7'b0000000; // 8
+            4'd9: seg = 7'b0000100; // 9
+            default: seg = 7'b1111111; // Blank for >9
+        endcase
+    end
+
+endmodule
+\end{lstlisting}
+\end{verbatim}
+
+\section*{PCF File (Pin Constraint File)}
+\begin{lstlisting}[style=verilog, caption={.pcf File for Vaman Board Pin Mapping}]
+set_io a 3
+set_io b 64
+set_io c 62
+set_io d 63
+set_io e 61
+set_io f 59
+set_io g 57
+
+
+set_io Z 56
+set_io Y 23
+set_io X 33
+set_io W 27
+\end{lstlisting}
+
+\section*{Procedure}
+\begin{enumerate}
+    \item Write the Verilog code for a 4x1 multiplexer using  7447 ic.
+    \item Create a new project in the Vaman IDE or through command line using Yosys and nextpnr.
+    \item Add the Verilog file and PCF file to the project.
+    \item Synthesize and implement the design.
+    \item Generate the bitstream or binary (.bin) file.
+    \item Upload the bitstream to the Vaman board.
+    \item Connect vaman board to observe the multiplexer output.
+\end{enumerate}
+
+\section*{Output and Observation}
+When the select lines are changed, the output LED glows corresponding to the selected input line as per the truth table.
+
+\section*{Conclusion}
+The 4x1 multiplexer was successfully implemented on the Vaman FPGA board. The output matched the expected behavior as per the truth table. This experiment demonstrates how combinational logic can be implemented on FPGA hardware using Verilog HDL.
+
+\section*{Result}
+A 4x1 MUX was designed, simulated, and verified on the Vaman FPGA board using 7447 ics as output indicators.
+
+\end{document}
