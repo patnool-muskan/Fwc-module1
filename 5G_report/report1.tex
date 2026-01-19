@@ -1,0 +1,83 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Name: P. Muskan \\ ID: COMETFWC035}
+\lhead{IIITB COMET}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{\textbf{Weekly Learning Report\\5G NR Layer 2 and Layer 3 Protocols}}
+\author{Internship Technical Summary}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+This report summarizes the key technical concepts learned during the past week of the internship. The focus was on understanding the functionality and interaction of 5G NR Layer 2 and Layer 3 protocols, particularly SDAP, PDCP, RLC, MAC, Advanced MAC procedures, and RRC. The learning emphasized practical reasoning behind protocol design choices rather than specification-level depth.
+
+\section{SDAP Layer}
+This week, I learned how SDAP enables QoS handling between the 5G Core and the radio access network.
+
+\begin{itemize}[itemsep=2pt]
+    \item Understood QoS Flow to DRB mapping using QFI.
+    \item Learned the purpose of Reflective QoS in simplifying uplink QoS handling.
+    \item Observed how SDAP header usage can be optimized to reduce overhead.
+\end{itemize}
+
+\section{PDCP Layer}
+The PDCP layer learning focused on security, packet ordering, and mobility support.
+
+\begin{itemize}[itemsep=2pt]
+    \item Learned how ciphering and integrity protection are applied using PDCP COUNT.
+    \item Understood PDCP sequence numbering and reordering mechanisms.
+    \item Studied duplicate detection and data forwarding during handover.
+    \item Gained a basic understanding of ROHC and its benefit for VoIP traffic.
+\end{itemize}
+
+\section{RLC Layer}
+A major part of the learning involved understanding why multiple RLC modes exist.
+
+\begin{itemize}[itemsep=2pt]
+    \item Learned differences between RLC TM, UM, and AM.
+    \item Understood segmentation, reassembly, and sequence numbering.
+    \item Studied ARQ operation in RLC AM using polling and status reports.
+    \item Learned the role of key timers such as t-Reassembly and t-PollRetransmit.
+\end{itemize}
+
+\section{MAC Layer}
+The MAC layer learning focused on scheduling and uplink resource management.
+
+\begin{itemize}[itemsep=2pt]
+    \item Understood the role of the MAC scheduler in balancing throughput and QoS.
+    \item Learned Logical Channel Prioritization using priority and PBR.
+    \item Studied Buffer Status Reports (BSR) and their triggering conditions.
+    \item Learned how Power Headroom Reports (PHR) influence uplink scheduling.
+\end{itemize}
+
+\section{Advanced MAC Procedures}
+Advanced MAC concepts were studied mainly from a power efficiency and latency perspective.
+
+\begin{itemize}[itemsep=2pt]
+    \item Learned DRX operation and its impact on UE power saving and latency.
+    \item Understood the purpose of Semi-Persistent Scheduling for periodic traffic.
+    \item Studied HARQ retransmissions and basic carrier aggregation concepts.
+\end{itemize}
+
+\section{RRC Layer}
+The RRC layer learning focused on connection management and mobility.
+
+\begin{itemize}[itemsep=2pt]
+    \item Learned RRC states: IDLE, CONNECTED, and INACTIVE.
+    \item Understood how RRC\_INACTIVE reduces signaling overhead.
+    \item Studied basic measurement reporting and handover triggering.
+\end{itemize}
+
+\section*{Conclusion}
+During this week, I gained a concise and structured understanding of how 5G NR Layer 2 and Layer 3 protocols work together to provide QoS, security, reliability, power efficiency, and mobility. This learning helped me connect protocol concepts with practical system behavior, forming a strong foundation for further work in 5G protocol implementation and analysis.
+
+\end{document}
